@@ -1,4 +1,6 @@
 b) DDL-ALTER & DROP
+
+
     1. Add a column ‘SSN’ at the first position in the table EMPLOYEE
     
     mysql> alter table Employee add SSN int first;
@@ -149,6 +151,7 @@ b) DDL-ALTER & DROP
 
     
     7. Delete the table STUDENT1
+    
     mysql> drop table student1;
     Query OK, 0 rows affected (0.00 sec)
     
