@@ -1,0 +1,53 @@
+1. List all invoice items, avoid duplicates.    
+
+mysql> select distinct inv_id from invoice_item;
++--------+
+| inv_id |
++--------+
+|     10 |
+|     11 |
++--------+
+2 rows in set (0.00 sec)
+
+
+
+2. List the customer details who not live in ‘tvm’. 
+
+mysql> select*from customers where city!='tvm';
++-----+---------+----------------+---------+------------+
+| id  | name    | address        | city    | ph_no      |
++-----+---------+----------------+---------+------------+
+| 103 | dhrisya | dhrishya bavan | palakas | 978655421  |
+| 104 | nefla   | kunjom         | wayanad | 9782711421 |
++-----+---------+----------------+---------+------------+
+2 rows in set (0.00 sec)
+
+
+3. Display the customer details sorted in ascending by city and descending by names.  
+
+mysql> select * from customers order by city asc,name desc;
++-----+---------+-----------------+---------+------------+
+| id  | name    | address         | city    | ph_no      |
++-----+---------+-----------------+---------+------------+
+| 103 | dhrisya | dhrishya bavan  | palakas | 978655421  |
+| 105 | karuna  | karunya nilayam | tvm     | 9786533261 |
+| 104 | nefla   | kunjom          | wayanad | 9782711421 |
++-----+---------+-----------------+---------+------------+
+3 rows in set (0.00 sec)
+
+
+
+4. Find the customer names who have ‘e’ or ‘a’ in them and at least 3 characters in length.
+
+
+mysql> select name from customers where name like '%e%' or name like '%a%' and name like "___%";
++---------+
+| name    |
++---------+
+| dhrisya |
+| nefla   |
+| karuna  |
++---------+
+3 rows in set (0.00 sec)
+
+
