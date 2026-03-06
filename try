@@ -1,0 +1,126 @@
+Tables
+
+  > Student(id(pk),name,dep_id(fk))
+  
+    mysql> create table Student(id int primary key,name varchar(20)not null,dep_id int,foreign key (dep_id)references Department(dep_id));
+    Query OK, 0 rows affected (0.01 sec)
+
+    mysql> desc Student;
+    +--------+-------------+------+-----+---------+-------+
+    | Field  | Type        | Null | Key | Default | Extra |
+    +--------+-------------+------+-----+---------+-------+
+    | id     | int         | NO   | PRI | NULL    |       |
+    | name   | varchar(20) | NO   |     | NULL    |       |
+    | dep_id | int         | YES  | MUL | NULL    |       |
+    +--------+-------------+------+-----+---------+-------+
+    3 rows in set (0.00 sec)
+
+
+
+
+
+  > Department(dep_id(pk),dep_name,course_id(fk))
+  
+    mysql> create table Department(dep_id int primary key,dep_name varchar(20), course_id int,foreign key (course_id)references Course(course_id));
+    Query OK, 0 rows affected (0.01 sec)
+
+    mysql> desc Department;
+    +-----------+-------------+------+-----+---------+-------+
+    | Field     | Type        | Null | Key | Default | Extra |
+    +-----------+-------------+------+-----+---------+-------+
+    | dep_id    | int         | NO   | PRI | NULL    |       |
+    | dep_name  | varchar(20) | YES  |     | NULL    |       |
+    | course_id | int         | YES  | MUL | NULL    |       |
+    +-----------+-------------+------+-----+---------+-------+
+    3 rows in set (0.00 sec)
+
+
+
+
+
+  > Cource(course_id(pk),course_name)
+
+    mysql> create table Course(course_id int primary key,course_name varchar(20));
+    Query OK, 0 rows affected (0.02 sec)
+
+    mysql> desc Course;
+    +-------------+-------------+------+-----+---------+-------+
+    | Field       | Type        | Null | Key | Default | Extra |
+    +-------------+-------------+------+-----+---------+-------+
+    | course_id   | int         | NO   | PRI | NULL    |       |
+    | course_name | varchar(20) | YES  |     | NULL    |       |
+    +-------------+-------------+------+-----+---------+-------+
+    2 rows in set (0.00 sec)
+
+
+
+
+display student names who select course MCA.
+
+
+  mysql> insert into Course(course_id,course_name) values(1001,"Bsc.CS"),(1002,"MCA"),(1003,"B.Com");
+  Query OK, 3 rows affected (0.03 sec)
+  Records: 3  Duplicates: 0  Warnings: 0
+
+  mysql> select * from Course;
+  +-----------+-------------+
+  | course_id | course_name |
+  +-----------+-------------+
+  |      1001 | Bsc.CS      |
+  |      1002 | MCA         |
+  |      1003 | B.Com       |
+  +-----------+-------------+
+  3 rows in set (0.00 sec)
+  
+  
+  
+  mysql> insert into Department(dep_id,dep_name,course_id) values(101,"cs",1001),(102,"MCA",1002),(103,"maths",1002),(104,"bcom",1003);
+  Query OK, 4 rows affected (0.01 sec)
+  Records: 4  Duplicates: 0  Warnings: 0
+
+  mysql> select * from Department;
+  +--------+----------+-----------+
+  | dep_id | dep_name | course_id |
+  +--------+----------+-----------+
+  |    101 | cs       |      1001 |
+  |    102 | MCA      |      1002 |
+  |    103 | maths    |      1002 |
+  |    104 | bcom     |      1003 |
+  +--------+----------+-----------+
+  
+  4 rows in set (0.00 sec)
+
+
+
+
+  mysql> insert into Student(id,name,dep_id) values(1,"Sinu",101),(2,"Karuna",104),(3,"Shaikha",102),(4,"Niya",102),(5,"Amitha",103);
+  Query OK, 5 rows affected (0.00 sec)
+  Records: 5  Duplicates: 0  Warnings: 0
+
+  mysql> select * from Student;
+  +----+---------+--------+
+  | id | name    | dep_id |
+  +----+---------+--------+
+  |  1 | Sinu    |    101 |
+  |  2 | Karuna  |    104 |
+  |  3 | Shaikha |    102 |
+  |  4 | Niya    |    102 |
+  |  5 | Amitha  |    103 |
+  +----+---------+--------+
+  5 rows in set (0.00 sec)
+
+
+
+
+  mysql> select name from Student where dep_id in(select dep_id from Department where course_id in(select course_id from Course where course_name='MCA'));
+  +---------+
+  | name    |
+  +---------+
+  | Shaikha |
+  | Niya    |
+  | Amitha  |
+  +---------+
+  3 rows in set (0.00 sec)
+
+
+
