@@ -1,0 +1,50 @@
+1. List the product name and quantity of invoice items.
+
+mysql> select pname,quantity from products natural join invoice_item;
++-------+----------+
+| pname | quantity |
++-------+----------+
+| A4    |       20 |
+| A4    |      200 |
+| A4    |        5 |
++-------+----------+
+3 rows in set (0.00 sec)
+
+
+ 
+ 
+ 
+2.. Display the customer name, product name, invoice date of purchased item ‘A4’. 
+
+mysql> select customers.name,products.pname,invoice_master.inv_date from customers join invoice_master on customers.id=invoice_master.cust_id join invoice_item on invoice_master.inv_id=invoice_item.inv_id join products on
+invoice_item.pid=products.pid where products.pname='A4';
++--------+-------+------------+
+| name   | pname | inv_date   |
++--------+-------+------------+
+| karuna | A4    | 2025-06-13 |
+| karuna | A4    | 2025-08-11 |
+| karuna | A4    | 2025-08-11 |
++--------+-------+------------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+3. Display all customer details and invoice details must include customer has not purchased items.
+
+mysql> select customers.id,customers.name,invoice_master.inv_id from customers left outer join invoice_master on customers.id=invoice_master.cust_id;
++-----+---------+--------+
+| id  | name    | inv_id |
++-----+---------+--------+
+| 102 | niya    |   NULL |
+| 103 | dhrisya |      6 |
+| 104 | nefla   |      7 |
+| 105 | karuna  |      8 |
+| 105 | karuna  |     10 |
+| 105 | karuna  |     11 |
++-----+---------+--------+
+6 rows in set (0.00 sec)
+
+
+
