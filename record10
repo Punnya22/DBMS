@@ -1,0 +1,68 @@
+1. create a procedure to find greatest of 3 numbers.
+
+mysql> delimiter //
+mysql> create procedure great3(a int,b int,c int)
+    -> begin
+    -> declare x,y,z int;
+    -> set x=a;
+    -> set y=b;
+    -> set z=c;
+    -> if x>y and x>z then
+    -> select x as 'greater';
+    -> elseif y>x and y>z then
+    -> select y as 'greater';
+    -> else
+    -> select z as 'greater';
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call great3(3,8,2)//
++---------+
+| greater |
++---------+
+|       8 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+
+
+2. create a procedure to display invoice details of a particular customer.
+
+mysql> CREATE PROCEDURE cst(IN cid INT)
+    -> BEGIN
+    ->     SELECT customers.id,
+    ->            customers.name,
+    ->            invoice_master.inv_id,
+    ->            invoice_master.inv_date,
+    ->            invoice_item.pid,
+    ->            invoice_item.quantity
+    ->     FROM customers
+    ->     JOIN invoice_master 
+    ->         ON customers.id = invoice_master.cust_id
+    ->     JOIN invoice_item 
+    ->         ON invoice_master.inv_id = invoice_item.inv_id
+    ->     WHERE customers.id = cid;
+    -> END //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call cst(105) //
++-----+--------+--------+------------+------+----------+
+| id  | name   | inv_id | inv_date   | pid  | quantity |
++-----+--------+--------+------------+------+----------+
+| 105 | karuna |     10 | 2025-06-13 |    6 |       20 |
+| 105 | karuna |     11 | 2025-08-11 |    6 |      200 |
+| 105 | karuna |     11 | 2025-08-11 |    6 |        5 |
++-----+--------+--------+------------+------+----------+
+3 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+
+

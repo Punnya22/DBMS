@@ -1,0 +1,21 @@
+1.Create a function to calculate price_range(low, medium, high) of each products. If price<=5 indicate as low, upto 50 indicate as medium, and above as high.
+
+mysql> CREATE FUNCTION prange(price DECIMAL(10,2)) RETURNS VARCHAR(10) DETERMINISTIC BEGIN     DECLARE result VARCHAR(10);      IF price <= 18 THEN
+        SET result = 'low';     ELSEIF price <= 50 THEN         SET result = 'medium';     ELSE         SET result = 'high';     END IF;      RETURN result; END//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select pname,price,prange(price) as price_category from products;//
++--------------+--------+----------------+
+| pname        | price  | price_category |
++--------------+--------+----------------+
+| pen          |  20.40 | medium         |
+| pencil       |  15.30 | low            |
+| book         |  15.30 | low            |
+| drawing_book | 102.00 | high           |
+| sticker      |  51.00 | high           |
+| A4           | 255.00 | high           |
+| colors       | 510.00 | high           |
++--------------+--------+----------------+
+7 rows in set (0.00 sec)
+
+
