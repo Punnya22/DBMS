@@ -11,9 +11,10 @@ mysql> CREATE TRIGGER price_check
     -> END //
 Query OK, 0 rows affected (0.01 sec)
 
-mysql> DELIMITER ;
+mysql> insert into products values(8,'note',15); //
+Query OK, 1 row affected (0.01 sec)
 
-mysql> select * from products;
+mysql> select * from products; //
 +-----+--------------+--------+
 | pid | pname        | price  |
 +-----+--------------+--------+
@@ -24,7 +25,9 @@ mysql> select * from products;
 |   5 | sticker      |  51.00 |
 |   6 | A4           | 255.00 |
 |   7 | colors       | 510.00 |
+|   8 | note         |  25.00 |
 +-----+--------------+--------+
-7 rows in set (0.00 sec)
+8 rows in set (0.00 sec)
+
 
 
