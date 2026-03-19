@@ -1,0 +1,73 @@
+1. Write a MongoDB query to sort customer details in ascending order of their name.  
+
+invoice> db.CUSTOMER.find().sort({name:1})
+[
+  {
+    _id: ObjectId('69b7b0c0c70de683638563b7'),
+    name: 'Dhrisya',
+    city: 'ekm'
+  },
+  {
+    _id: ObjectId('69b7ab2cc70de683638563b3'),
+    name: 'Karu',
+    city: 'tvm'
+  },
+  {
+    _id: ObjectId('69b7aae8c70de683638563b2'),
+    name: 'Niya',
+    city: 'calicut'
+  }
+]
+
+
+
+
+
+2. Write a MongoDB query to count number of customers in each city. 
+
+invoice> db.CUSTOMER.aggregate([{$group:{_id:"city",total:{$sum:1}}}])
+[ { _id: 'city', total: 3 } ]
+
+
+
+
+
+3. Write a MongoDB query to find minimum and maximum price of the product. 
+
+invoice> db.PRODUCT.aggregate([{$group:{_id:"Pname",max_price:{$max:"$price"},min_price:{$min:"$price"}}}]);
+[ { _id: 'Pname', max_price: 250, min_price: 10 } ]
+
+
+
+
+
+4. Write a MongoDB query using the $match stage to retrieve all customer documents whose customer_name starts with the letter “D”. 
+
+invoice> db.CUSTOMER.aggregate([{$match:{name:{$regex:"^D"}}}])
+[
+  {
+    _id: ObjectId('69b7b0c0c70de683638563b7'),
+    name: 'Dhrisya',
+    city: 'ekm'
+  }
+]
+
+
+
+
+
+5. Write a query using $lookup to join CUSTOMER and PRODUCT collections and display only customer name, product name, and price.
+
+invoice> db.CUSTOMER.aggregate([{$lookup:{from:"PRODUCT",localField:"product_id",foreignField:"product_id",as:"product_info"}},{$unwind:"$product_info"},{$project:{_id:0,name:"$name",pname: "$product_info.pname",price: "product_info.price"}}]);
+[
+  { name: 'Niya', pname: 'pen', price: 'product_info.price' },
+  { name: 'Niya', pname: 'A4', price: 'product_info.price' },
+  { name: 'Niya', pname: 'book', price: 'product_info.price' },
+  { name: 'Karu', pname: 'pen', price: 'product_info.price' },
+  { name: 'Karu', pname: 'A4', price: 'product_info.price' },
+  { name: 'Karu', pname: 'book', price: 'product_info.price' },
+  { name: 'Dhrisya', pname: 'pen', price: 'product_info.price' },
+  { name: 'Dhrisya', pname: 'A4', price: 'product_info.price' },
+  { name: 'Dhrisya', pname: 'book', price: 'product_info.price' }
+]
+
