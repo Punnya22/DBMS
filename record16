@@ -58,16 +58,16 @@ invoice> db.CUSTOMER.aggregate([{$match:{name:{$regex:"^D"}}}])
 
 5. Write a query using $lookup to join CUSTOMER and PRODUCT collections and display only customer name, product name, and price.
 
-invoice> db.CUSTOMER.aggregate([{$lookup:{from:"PRODUCT",localField:"product_id",foreignField:"product_id",as:"product_info"}},{$unwind:"$product_info"},{$project:{_id:0,name:"$name",pname: "$product_info.pname",price: "product_info.price"}}]);
+invoice> db.CUSTOMER.aggregate([{$lookup:{from:"PRODUCT",localField:"product_id",foreignField:"product_id",as:"product_info"}},{$unwind:"$product_info"},{$project:{_id:0,name:"$name",pname: "$product_info.pname",price: "$product_info.price"}}]);
 [
-  { name: 'Niya', pname: 'pen', price: 'product_info.price' },
-  { name: 'Niya', pname: 'A4', price: 'product_info.price' },
-  { name: 'Niya', pname: 'book', price: 'product_info.price' },
-  { name: 'Karu', pname: 'pen', price: 'product_info.price' },
-  { name: 'Karu', pname: 'A4', price: 'product_info.price' },
-  { name: 'Karu', pname: 'book', price: 'product_info.price' },
-  { name: 'Dhrisya', pname: 'pen', price: 'product_info.price' },
-  { name: 'Dhrisya', pname: 'A4', price: 'product_info.price' },
-  { name: 'Dhrisya', pname: 'book', price: 'product_info.price' }
+  { name: 'Niya', pname: 'pen', price: 10 },
+  { name: 'Niya', pname: 'A4', price: 250 },
+  { name: 'Niya', pname: 'book', price: 30 },
+  { name: 'Karu', pname: 'pen', price: 10 },
+  { name: 'Karu', pname: 'A4', price: 250 },
+  { name: 'Karu', pname: 'book', price: 30 },
+  { name: 'Dhrisya', pname: 'pen', price: 10 },
+  { name: 'Dhrisya', pname: 'A4', price: 250 },
+  { name: 'Dhrisya', pname: 'book', price: 30 }
 ]
 
