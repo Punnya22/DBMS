@@ -1,0 +1,51 @@
+1. Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database. 
+
+invoice> db.createUser({user: "CUSTOMER1",pwd: "yourStrongPasswordHere",roles: [{ role: "read", db: "INVOICE" }]})
+{ ok: 1 }
+
+
+
+
+2. Write a MongoDB query to create the backup for the INVOICE database. 
+
+(base) user@user-H410M-H-V2:~$ mongodump --db invoice
+2026-03-19T15:10:08.178+0530	writing invoice.PRODUCT to dump/invoice/PRODUCT.bson
+2026-03-19T15:10:08.178+0530	writing invoice.CUSTOMER to dump/invoice/CUSTOMER.bson
+2026-03-19T15:10:08.178+0530	writing invoice.customer to dump/invoice/customer.bson
+2026-03-19T15:10:08.179+0530	done dumping invoice.customer (0 documents)
+2026-03-19T15:10:08.179+0530	done dumping invoice.PRODUCT (3 documents)
+2026-03-19T15:10:08.179+0530	done dumping invoice.CUSTOMER (3 documents)
+
+
+
+
+3. Write a MongoDB query to restore a particular database or a collection. 
+
+(base) user@user-H410M-H-V2:~$ mongodump --db ksb
+2026-03-19T15:12:40.808+0530	writing ksb.customer to dump/ksb/customer.bson
+2026-03-19T15:12:40.808+0530	writing ksb.MCA to dump/ksb/MCA.bson
+2026-03-19T15:12:40.809+0530	done dumping ksb.customer (4 documents)
+2026-03-19T15:12:40.810+0530	done dumping ksb.MCA (0 documents)
+
+invoice> use ksb
+switched to db ksb
+ksb> db.dropDatabase()
+{ ok: 1, dropped: 'ksb' }
+
+
+(base) user@user-H410M-H-V2:~$ mongorestore --db ksb
+2026-03-19T15:15:16.124+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
+2026-03-19T15:15:16.124+0530	using default 'dump' directory
+2026-03-19T15:15:16.124+0530	building a list of collections to restore from dump dir
+2026-03-19T15:15:16.124+0530	don't know what to do with subdirectory "dump/invoice", skipping...
+2026-03-19T15:15:16.124+0530	don't know what to do with subdirectory "dump/ksb", skipping...
+2026-03-19T15:15:16.124+0530	0 document(s) restored successfully. 0 document(s) failed to restore.
+
+
+
+
+4. Write a MongoDB query to create an index for the collection customer using the field customer_name.
+
+invoice> db.customer.createIndex({ customer_name: 1 })
+customer_name_1
+
