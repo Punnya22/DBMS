@@ -33,14 +33,37 @@ ksb> db.dropDatabase()
 { ok: 1, dropped: 'ksb' }
 
 
-(base) user@user-H410M-H-V2:~$ mongorestore --db ksb
-2026-03-19T15:15:16.124+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
-2026-03-19T15:15:16.124+0530	using default 'dump' directory
-2026-03-19T15:15:16.124+0530	building a list of collections to restore from dump dir
-2026-03-19T15:15:16.124+0530	don't know what to do with subdirectory "dump/invoice", skipping...
-2026-03-19T15:15:16.124+0530	don't know what to do with subdirectory "dump/ksb", skipping...
-2026-03-19T15:15:16.124+0530	0 document(s) restored successfully. 0 document(s) failed to restore.
-
+(base) user@user-H410M-H-V2:~$ mongorestore --drop dump/
+2026-03-23T11:34:19.052+0530	preparing collections to restore from
+2026-03-23T11:34:19.052+0530	don't know what to do with file "dump/invoice/prelude.json", skipping...
+2026-03-23T11:34:19.052+0530	don't know what to do with file "dump/ksb/prelude.json", skipping...
+2026-03-23T11:34:19.052+0530	reading metadata for invoice.customer from dump/invoice/customer.metadata.json
+2026-03-23T11:34:19.052+0530	reading metadata for ksb.MCA from dump/ksb/MCA.metadata.json
+2026-03-23T11:34:19.053+0530	reading metadata for ksb.customer from dump/ksb/customer.metadata.json
+2026-03-23T11:34:19.053+0530	reading metadata for invoice.CUSTOMER from dump/invoice/CUSTOMER.metadata.json
+2026-03-23T11:34:19.053+0530	reading metadata for invoice.PRODUCT from dump/invoice/PRODUCT.metadata.json
+2026-03-23T11:34:19.053+0530	dropping collection invoice.CUSTOMER before restoring
+2026-03-23T11:34:19.053+0530	dropping collection invoice.PRODUCT before restoring
+2026-03-23T11:34:19.054+0530	dropping collection ksb.customer before restoring
+2026-03-23T11:34:19.055+0530	dropping collection invoice.customer before restoring
+2026-03-23T11:34:19.064+0530	restoring invoice.CUSTOMER from dump/invoice/CUSTOMER.bson
+2026-03-23T11:34:19.067+0530	restoring invoice.PRODUCT from dump/invoice/PRODUCT.bson
+2026-03-23T11:34:19.069+0530	restoring ksb.customer from dump/ksb/customer.bson
+2026-03-23T11:34:19.071+0530	restoring invoice.customer from dump/invoice/customer.bson
+2026-03-23T11:34:19.074+0530	finished restoring invoice.CUSTOMER (3 documents, 0 failures)
+2026-03-23T11:34:19.074+0530	dropping collection ksb.MCA before restoring
+2026-03-23T11:34:19.078+0530	finished restoring invoice.PRODUCT (3 documents, 0 failures)
+2026-03-23T11:34:19.079+0530	finished restoring ksb.customer (4 documents, 0 failures)
+2026-03-23T11:34:19.080+0530	restoring ksb.MCA from dump/ksb/MCA.bson
+2026-03-23T11:34:19.082+0530	finished restoring invoice.customer (0 documents, 0 failures)
+2026-03-23T11:34:19.090+0530	finished restoring ksb.MCA (0 documents, 0 failures)
+2026-03-23T11:34:19.090+0530	no indexes to restore for collection ksb.MCA
+2026-03-23T11:34:19.090+0530	restoring indexes for collection invoice.customer from metadata
+2026-03-23T11:34:19.090+0530	index: &idx.IndexDocument{Options:primitive.M{"name":"customer_name_1", "v":2}, Key:primitive.D{primitive.E{Key:"customer_name", Value:1}}, PartialFilterExpression:primitive.D(nil)}
+2026-03-23T11:34:19.090+0530	no indexes to restore for collection invoice.CUSTOMER
+2026-03-23T11:34:19.090+0530	no indexes to restore for collection invoice.PRODUCT
+2026-03-23T11:34:19.090+0530	no indexes to restore for collection ksb.customer
+2026-03-23T11:34:19.093+0530	10 document(s) restored successfully. 0 document(s) failed to restore.
 
 
 
